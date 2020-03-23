@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WhatsApp?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="WhatsApp?">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <link href="https://fonts.googleapis.com/css?family=Baloo+Da+2&display=swap" rel="stylesheet">
+    <style type="text/css">
+        html {
+            font-family: 'Baloo Da 2', cursive;
+            overflow: hidden;
+            position: fixed;
+            width: 100%;
+        }
+        
+        body {
+            font-size: 3.2vmax;
+            text-align: center;
+            -webkit-user-select: none;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+        
+        input,
+        button {
+            font-size: 3vmax;
+            outline: none;
+            border: none;
+            box-shadow: none;
+            line-height: 50px;
+            background: #fafafa;
+            box-shadow: inset 0px 1px 3px 0px rgba(0, 0, 0, 0.08);
+            border-radius: 5px;
+            color: #666;
+        }
+        
+        button {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        
+        input {
+            width: 80%;
+            margin-top: 40px;
+            margin-bottom: 30px;
+        }
+        
+        footer {
+            font-family: Courier;
+            font-size: 20px;
+            color: rgba(211, 211, 211, 0.8);
+            position: fixed;
+            padding: 5px;
+            bottom: 15px;
+            left: 10px;
+            right: 10px;
+        }
+        
+        a {
+            text-decoration: none;
+            background-color: rgb(246, 129, 89);
+            color: white;
+            padding: 15px;
+            display: block;
+            border-radius: 15px;
+        }
+        
+        a:empty {
+            display: none;
+        }
+    </style>
+    <script>
+        function createLink(wan) {
+            if (wan != null) {
+                var wans = wan.split(' ').join('');
+                if (wans != "+65") {
+                    document.getElementById("wa").href = "https://api.whatsapp.com/send?phone=" + wans;
+                    document.getElementById("wa").innerHTML = "Chat with<br/>" + wan;
+                    document.getElementById("wa").style.backgroundColor = "rgb(246, 129, 89)";
+                    document.getElementById("buttons").hidden = false;
+                } else {
+                    clean();
+                }
+            }
+        }
+
+        function clean() {
+            document.getElementById("pn").value = "+65 ";
+            document.getElementById("wa").href = "";
+            document.getElementById("wa").innerHTML = "";
+            document.getElementById("wa").style.backgroundColor = "rgb(246, 129, 89)";
+            document.getElementById("buttons").hidden = true;
+        }
+
+        function copy() {
+            Clipboard.copy(document.getElementById('wa').href);
+            document.getElementById("wa").style.backgroundColor = "rgb(118, 227, 191)";
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <div>Send WhatsApp message to a number that is not in your addressbook.</div>
+        <input type="text" id="pn" inputmode="numeric" onchange="createLink(this.value);" value="+65 ">
+        <a id="wa"></a>
+        <div id="buttons" style="margin-top: 30px" hidden>
+            <button onclick="clean();">Clear</button>
+            <button onclick="copy();">Copy</button>
+        </div>
+    </div>
+    <footer> &#169; 2020 ǝuıɥsuooɯ</footer>
+    <script src="clipboard.js"></script>
+</body>
+
+</html>
